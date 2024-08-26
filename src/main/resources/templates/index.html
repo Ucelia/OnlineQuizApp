@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Quiz Application</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+        .header {
+            background-color: #343a40;
+            color: #fff;
+            padding: 3rem 0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        .title {
+            font-size: 3.5rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+        .lead {
+            font-size: 1.25rem;
+            margin-bottom: 2rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+            border-color: #6c757d;
+        }
+        .btn-secondary:hover {
+            background-color: #5a6268;
+            border-color: #5a6268;
+        }
+        .footer {
+            color: #fff;
+            padding: 1rem 0;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header text-center">
+    <div class="container">
+        <h1 class="title">Welcome to Online Quiz Application</h1>
+        <p class="lead">Test your knowledge with our quizzes</p>
+        <p>Choose an option below to get started</p>
+        <p class="lead">
+            <a class="btn btn-info btn-lg" href="/login" role="button">Login</a>
+            <a class="btn btn-secondary btn-lg" href="/register" role="button">Register</a>
+        </p>
+    </div>
+</div>
+
+<div class="footer">
+    <p>&copy; 2024 Online Quiz Application. All rights reserved.</p>
+</div>
+
+</body>
+</html>

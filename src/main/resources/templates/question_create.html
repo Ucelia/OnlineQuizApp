@@ -1,0 +1,157 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Quiz - Online Quiz Application</title>
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <style>
+        body {
+            background-color: #f8f9fa;
+        }
+        .container {
+            margin-top: 3rem;
+        }
+        .card {
+            max-width: 600px;
+            margin: 0 auto;
+            border: 1px solid #ced4da;
+            border-radius: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            position: relative;
+        }
+        .card-header {
+            background-color: #343a40;
+            color: #fff;
+            font-weight: bold;
+            text-align: center;
+            border-bottom: none;
+            border-radius: 10px 10px 0 0;
+            padding: 15px 0;
+        }
+        .logout-link {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #fff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .landing-link {
+            display: block;
+            text-align: center;
+            margin-top: 1rem;
+            color: #007bff;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        .landing-link:hover {
+            color: #0056b3;
+        }
+        .card-body {
+            padding: 20px;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .btn-primary {
+            background-color: #007bff;
+            border-color: #007bff;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        /*.btn-info{*/
+        /*    width: 60%;*/
+        /*    margin-top: 50px;*/
+        /*    position: absolute;*/
+        /*    margin-left: 50px;*/
+        /*}*/
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <a href="/logout" class="logout-link">Logout</a>
+        <div class="card-header">
+            <h4>Create Questions</h4>
+        </div>
+        <div class="card-body">
+            <div th:if="${message}" class="alert alert-success" role="alert">
+                <span th:text="${message}"></span>
+            </div>
+            <form action="/createquestion" method="post">
+
+<!--                        <div class="form-group">-->
+<!--                            <label>Quiz:</label>-->
+<!--                            <select class="form-control" name="quiz" id="quizDropdown" required>-->
+<!--                                <option value="">Select Quiz</option>-->
+<!--                            </select>-->
+<!--                        </div>-->
+                        <div class="form-group">
+                            <label>Question:</label>
+                            <input type="text" class="form-control" name="questions" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Option 1:</label>
+                            <input type="text" class="form-control" name="option1" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Option 2:</label>
+                            <input type="text" class="form-control" name="option2" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Option 3:</label>
+                            <input type="text" class="form-control" name="option3" required>
+                        </div>
+                <div class="form-group">
+                    <label>Option 4:</label>
+                    <input type="text" class="form-control" name="correctOption" required>
+                </div>
+
+                        <input type="hidden" name="quizId" th:value="${quizId}">
+
+
+                    <button type="submit" class="btn btn-info btn-block mt-3">Create Question</button>
+        </div>
+        <a href="/quiz_create" class="landing-link">Back to Previous Page</a>
+    </div>
+
+            </form>
+        </div>
+
+    </div>
+</div>
+
+<!--<script>-->
+<!--    // Function to fetch quizzes from the backend and populate the dropdown-->
+<!--    function fetchQuizzesAndPopulateDropdown() {-->
+<!--        fetch('/quizzes')-->
+<!--            .then(response => response.json())-->
+<!--            .then(quizzes => {-->
+<!--                const quizSelect = document.getElementById("quizSelect");-->
+<!--                quizSelect.innerHTML = '<option value="">Select a Quiz</option>';-->
+<!--                quizzes.forEach(quiz => {-->
+<!--                    const option = document.createElement("option");-->
+<!--                    option.value = quiz.id;-->
+<!--                    option.textContent = quiz.title;-->
+<!--                    quizSelect.appendChild(option);-->
+<!--                });-->
+<!--            })-->
+<!--            .catch(error => {-->
+<!--                console.error('Error fetching quizzes:', error);-->
+<!--            });-->
+<!--    }-->
+
+<!--    // Call the function to fetch quizzes and populate the dropdown on page load-->
+<!--    window.onload = fetchQuizzesAndPopulateDropdown;-->
+<!--</script>-->
+
+</body>
+</html>

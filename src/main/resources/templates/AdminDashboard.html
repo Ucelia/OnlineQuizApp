@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Dashboard</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 5rem;
+    }
+    .card {
+      max-width: 400px;
+      margin: 0 auto;
+      position: relative;
+      border: none;
+      border-radius: 10px;
+      background-color: #fff;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card-header {
+      background-color: #343a40;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      padding: 20px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+    }
+    .card-body {
+      padding: 40px;
+    }
+    .btn {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      /*background-color: #007bff;*/
+      color: #fff;
+      border: none;
+      transition: background-color 0.3s;
+    }
+    .btn:hover {
+      background-color: #559691;
+    }
+    .logout-link {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .landing-link {
+      display: block;
+      text-align: center;
+      margin-top: 1rem;
+      color: #007bff;
+      text-decoration: none;
+      transition: color 0.3s;
+    }
+    .landing-link:hover {
+      color: #0056b3;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="card">
+    <a href="/logout" class="logout-link">Logout</a>
+    <div class="card-header">
+      Admin Dashboard
+    </div>
+    <div class="card-body">
+      <a href="/createquizzes" class="btn btn-info">Create Quizzes</a>
+      <a href="/quizcreation" class="btn btn-info">Create Questions</a>
+    </div>
+  </div>
+</div>
+</div>
+<a href="/" class="landing-link">Back to Home</a>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Questions</title>
+  <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+  <script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+  <style>
+    body {
+      background-color: #f8f9fa;
+      font-family: Arial, sans-serif;
+    }
+    .container {
+      margin-top: 5rem;
+    }
+    .card {
+      max-width: 600px;
+      margin: 0 auto;
+      position: relative;
+      border: 1px solid #ced4da; /* Add border */
+      border-radius: 10px; /* Rounded corners */
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add shadow */
+    }
+    .card-header {
+      background-color: #343a40;
+      color: #fff;
+      font-weight: bold;
+      text-align: center;
+      padding: 1rem; /* Add padding */
+      border-top-left-radius: 10px; /* Rounded corners */
+      border-top-right-radius: 10px; /* Rounded corners */
+    }
+    .question-container {
+      display: none;
+    }
+    .options {
+      margin-top: 1rem; /* Add spacing */
+    }
+    .options label {
+      display: block; /* Display options vertically */
+      margin-bottom: 0.5rem; /* Add spacing between options */
+    }
+    .btn-primary {
+      background-color: #007bff;
+      border-color: #007bff;
+    }
+    .btn-primary:hover {
+      background-color: #0056b3;
+      border-color: #0056b3;
+    }
+    .logout-link {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+<div class="container">
+  <div class="card">
+    <a href="/logout" class="logout-link">Logout</a>
+    <div class="card-header">
+      Questions
+    </div>
+    <!-- Display one question at a time with radio buttons for options -->
+    <div class="card-body">
+      <form action="/submitAnswers" method="post">
+<!--      <form th:action="@{/submitAnswers}" method="post">-->
+        <!-- Loop through questions -->
+        <div th:each="question, iterStat : ${questions}" th:id="'question_' + ${iterStat.index}" class="question-container">
+
+        <input type="hidden" name="quizId" th:value="${quizId}">
+          <div class="question" id="questionText"></div>
+          <span th:text="${question.questions}" style="font-size: 1.2em; font-weight: bold;"></span><br> <!-- Apply styling to question text -->
+          <div class="options" id="optionsContainer">
+
+            <label>
+              <input type="radio" th:name="answers" th:id="'option1_' + ${question.id}"  th:value="${question.option1}">
+              <span th:text="${question.option1}" ></span>
+
+
+<!--                <input type="radio" name="answers" th:id="'option1_' + ${question.id}" th:name="'question_' + ${question.id}" th:value="${question.option1}">-->
+<!--                <span th:text="${question.option1}"></span>-->
+
+
+            </label>
+
+            <label>
+              <input type="radio" th:name="answers" th:id="'option2_' + ${question.id}" th:value="${question.option2}">
+              <span th:text="${question.option2}"></span>
+            </label>
+
+            <label>
+              <input type="radio" th:name="answers" th:id="'option3_' + ${question.id}" th:value="${question.option3}">
+              <span th:text="${question.option3}"></span>
+            </label>
+
+            <label>
+              <input type="radio" th:name="answers" th:id="'correctOption_' + ${question.id}" th:value="${question.correctOption}">
+              <script>
+                //let answer = document.getElementById( "correctOption" +[[${question.id}]] );
+              </script>
+              <span th:text="${question.correctOption}"></span>
+            </label>
+
+<!--            <label>-->
+<!--              <input type="radio" name="option" th:id="'option2_' + ${question.id}" th:name="'question_' + ${question.id}" th:value="${question.option2}">-->
+<!--              <span th:text="${question.option2}"></span>-->
+<!--            </label>-->
+
+<!--            <label>-->
+<!--              <input type="radio" name="option" th:id="'option3_' + ${question.id}" th:name="'question_' + ${question.id}" th:value="${question.option3}">-->
+<!--              <span th:text="${question.option3}"></span>-->
+<!--            </label>-->
+
+          </div>
+
+          <input type="hidden" name="quizId" th:value="${quizId}">
+          <input type="hidden" name="userId" th:value="${session.loggedInUser.id}">
+          <input type="hidden" name="answers" th:value="${answers}">
+
+          <div class="card-footer">
+            <input type="hidden" name="questionId" th:value="${question.id}">
+<!--            <input type="button" value="Previous" th:onclick="'showQuestion(' + (${iterStat.index} - 1) + ')'" th:if="${iterStat.index > 0}" class="btn btn-primary"> &lt;!&ndash; Use bootstrap button styling &ndash;&gt;-->
+<!--            <input type="button" value="Next"  class="btn btn-primary"> &lt;!&ndash; Use bootstrap button styling &ndash;&gt;-->
+            <input type="button" value="Next" th:onclick="'showQuestion(' + (${iterStat.index} + 1) + ')'" th:if="${iterStat.index < (#lists.size(questions) - 1)}" class="btn btn-primary"> <!-- Use bootstrap button styling -->
+<!--            <input type="submit" id="submitButton" value="Submit" class="btn btn-primary">-->
+
+            <input type="submit" id="submitButton" value="Submit" th:if="${iterStat.index == (#lists.size(questions) - 1)}" class="btn btn-primary"> <!-- Use bootstrap button styling -->
+<!--            <input type="submit" value="Next" class="btn btn-submit">-->
+
+
+            <div th:if="${error}" class="alert alert-danger" role="alert">
+              <span th:text="${error}"></span>
+            </div>
+
+          </div>
+        </div>
+
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+<script th:inline="javascript">
+  $(document).ready(function() {
+    showQuestion(0);
+  });
+//let answers[];
+  function showQuestion(index) {
+    //let answer = document.getElementById()
+    $('.question-container').hide();
+    $('#question_' + index).show();
+  }
+
+  function showNextQuestion(currentIndex) {
+    var nextIndex = currentIndex + 1;
+    showQuestion(nextIndex);
+  }
+
+  function showPreviousQuestion(currentIndex) {
+    var previousIndex = currentIndex - 1;
+    showQuestion(previousIndex);
+  }
+</script>
+<script th:inline="javascript">
+  $(document).ready(function() {
+    var score = 0; // Initialize the score to zero
+
+    // Function to update score
+    function updateScore(correctOptionId) {
+      // Get the selected option's ID
+      var selectedOptionId = $("input[name='answers']:checked").attr("id");
+
+      // If the selected option ID matches the correct option ID, increment the score
+      if (selectedOptionId === correctOptionId) {
+        score++; // Increment the score
+      }
+
+      console.log("Score: " + score); // Log the current score
+    }
+
+    // Event listener for radio button changes
+    $("input[type='radio']").change(function() {
+      // Extract the question ID from the selected radio button's ID
+      var questionId = $(this).attr("id").split("_")[1];
+
+      // Call the updateScore function with the correct option's ID
+      updateScore("correctOption_" + questionId);
+    });
+
+    // Submit answers function
+    $("form").submit(function(event) {
+      // Prevent the default form submission
+      event.preventDefault();
+
+      // Serialize the form data
+      var formData = $(this).serialize();
+
+      // Send the score along with other form data to the server
+      $.ajax({
+        type: "POST",
+        url: "/submitAnswers",
+        data: formData + "&score=" + score, // Append the score to the form data
+        success: function(response) {
+          // Handle success response if needed
+          console.log("Score submitted successfully");
+        },
+        error: function(xhr, status, error) {
+          // Handle error response if needed
+          console.error("Error submitting score:", error);
+        }
+      });
+    } );
+  });
+</script>
+
+
+
+
+</body>
+</html>
